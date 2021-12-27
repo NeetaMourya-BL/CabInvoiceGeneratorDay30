@@ -1,0 +1,93 @@
+package com.bridgelabz.tdd;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Test;
+public class InvoiceGeneratorTest {
+    @Test
+    public void givenDistanceAndTime_ShouldReturnTotalFare() {
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        double distance = 0.0;
+        int time = 0;
+        double fare = invoiceGenerator.calculateFare(distance, time);
+        Assertions.assertEquals(0, 0, 0.0);
+
+    }
+
+    @Test
+    public void givenDistanceAndTime_ShouldReturnActualTotalFare() {
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        double distance = 2.0;
+        int time = 5;
+        double fare = invoiceGenerator.calculateFare(distance, time);
+        Assertions.assertEquals(25, fare, 0.0);
+
+    }
+    @Test
+    public void givenMultipleRides_ShouldReturnTotalFare() {
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        Ride[] rides = {new Ride(0.0, 0),
+                new Ride(0.0, 1)
+        };
+        InvoiceSummary fare = invoiceGenerator.calculateFare(rides);
+        Assertions.assertEquals(0.0, 0.0);
+
+    }
+    @Test
+    public void givenMultipleRides_ShouldReturnMultipleRaidsTotalFare() {
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        Ride[] rides = {new Ride(2.0, 5),
+                new Ride(0.1, 1)
+        };
+        InvoiceSummary fare1 = invoiceGenerator.calculateFare(rides);
+        InvoiceSummary fare2 = invoiceGenerator.calculateFare(rides);
+        Assertions.assertEquals(fare1, fare2);
+
+    }
+
+    @Test
+    public void givenMultipleRides_ShouldReturnInvoiceSummary() {
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        Ride[] rides = {new Ride(0.0, 0),
+                new Ride(0.0, 1)
+        };
+        InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(0, 0.0);
+        Assertions.assertEquals(0, 0);
+    }
+    @Test
+    public void givenMultipleRides_ShouldReturnInvoiceSummaryEquals() {
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        Ride[] rides = {new Ride(2.0, 5),
+                new Ride(0.1, 1)
+        };
+        InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+        Assertions.assertEquals(expectedInvoiceSummary,summary);
+    }
+    @Test
+    public void getsTheListOfRides_UsingUserID() {
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        Ride[] rides = {new Ride(2.0, 5),
+                new Ride(0.1, 1)
+        };
+        InvoiceSummary summary = invoiceGenerator.calculateFare(rides);
+        InvoiceSummary id = new InvoiceSummary(2, 30.0);
+        id.setUserId(1, summary);
+        Map<Integer, InvoiceSummary> userID = new HashMap<>();
+        for (Map.Entry<Integer, InvoiceSummary> integerInvoiceSummaryEntry : userID.entrySet()) {
+            integerInvoiceSummaryEntry.getValue();
+        }
+
+        Assertions.assertEquals(userID, id.getUserId());
+    }
+
+    @Test
+    public void givesPremiumRates_ShouldReturnMinimumFare() {
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        double distance = 0.1;
+        int time = 2;
+        double premiumFare = invoiceGenerator.calculatePremiumFare(distance, time);
+        Assertions.assertEquals(20, premiumFare,0.0);
+    }
+}
