@@ -78,9 +78,8 @@ public class InvoiceGeneratorTest {
         for (Map.Entry<Integer, InvoiceSummary> integerInvoiceSummaryEntry : userID.entrySet()) {
             integerInvoiceSummaryEntry.getValue();
         }
-
         Assertions.assertEquals(userID, id.getUserId());
-    }
+        }
 
     @Test
     public void givesPremiumRates_ShouldReturnMinimumFare() {
